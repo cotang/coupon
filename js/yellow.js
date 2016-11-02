@@ -191,6 +191,7 @@ function createItem(generated){
       // console.log(secOverall);
       if (secOverall < 0){
         clearInterval(count);
+        newItem.classList.add('catalog_cart--disabled');
       }
     }
     var count = setInterval(countdown, 1000);

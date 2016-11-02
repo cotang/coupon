@@ -28,7 +28,7 @@ personName.addEventListener('change', function(){
   updateStatus(personName, isValid, messageText);
 });
 tel.addEventListener('change', function(){
-  var telRegExp = /^.+$/;
+  var telRegExp = /\d+/;
   var isValid = telRegExp.test(tel.value);
   var messageText = "Заполните поле";
   updateStatus(tel, isValid, messageText);
@@ -74,6 +74,7 @@ function hideLoader() {
 function hideSuccess() {
   modalSuccess.style.display = 'none';
   modalUnderlay.style.display = 'none';
+  document.querySelector('body').style.overflow = 'auto';
 }
 
 
