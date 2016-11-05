@@ -1,6 +1,7 @@
 /* 1, 3. Наполнение страницы информацией (купонами) */
 var cartsDataArray; 
 
+
 getJson("js/json/generated.json", function(generated){
   cartsDataArray = generated;
   createItem(cartsDataArray);
@@ -21,7 +22,6 @@ document.querySelector('.catalog_sort__item--discount').addEventListener('click'
 
 function sortPrice(e) {
   e.preventDefault();
-  // console.log(cartsDataArray);
   cartsDataArray.sort(function(a, b){
     if (a.priceNew>b.priceNew){
       return 1;
@@ -32,6 +32,7 @@ function sortPrice(e) {
   createItem(cartsDataArray);
   filterFunctions();
 }
+
 function sortDiscount(e){
   e.preventDefault();
   cartsDataArray.sort(function(a, b){
@@ -165,10 +166,10 @@ function createItem(generated){
     var secAmount = Math.floor(secOverall - daysAmount*SECONDS_IN_DAY - hoursAmount*SECONDS_IN_HOUR - minAmount*SECONDS_IN_MINUTE);
 
 
-    var days = newItemImageTimer.querySelector(".timer__item:nth-of-type(1) span");
-    var hours = newItemImageTimer.querySelector(".timer__item:nth-of-type(2) span");
-    var minutes = newItemImageTimer.querySelector(".timer__item:nth-of-type(3) span");
-    var seconds = newItemImageTimer.querySelector(".timer__item:nth-of-type(4) span");
+    var days = newItemImageTimer.querySelector(".timer__item:nth-of-type(1) span:nth-of-type(1)");
+    var hours = newItemImageTimer.querySelector(".timer__item:nth-of-type(2) span:nth-of-type(1)");
+    var minutes = newItemImageTimer.querySelector(".timer__item:nth-of-type(3) span:nth-of-type(1)");
+    var seconds = newItemImageTimer.querySelector(".timer__item:nth-of-type(4) span:nth-of-type(1)");
     function countdown () {
       seconds.innerHTML = secAmount;
       minutes.innerHTML = minAmount;

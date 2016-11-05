@@ -138,7 +138,7 @@ var states = {
       removeFilterDateTo(filterSec)
     }
     // что находится в строке dateTo
-    console.log(states.dateTo)
+//    console.log(states.dateTo)
     // фильтрация
     filterFunctions();
   });

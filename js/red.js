@@ -80,6 +80,24 @@ function hideSuccess() {
 
 
 /* 13. scroll */
-window.addEventListener('scroll', function(){
-  console.log('scroll')
-});
+// window.addEventListener('scroll', function(){
+//   console.log('scroll')
+// });
+
+window.addEventListener('scroll', scroll);
+
+function scroll(){
+  var scrollTop = window.scrollY;
+  var windowHeight = window.innerHeight;
+  var documentHeight = document.body.clientHeight;
+  console.log(scrollTop, windowHeight, documentHeight);
+  if (scrollTop > documentHeight - windowHeight - 50) {
+    console.log('load')
+    getJson("js/json/generated.json", function(generated){
+      cartsDataArray = cartsDataArray.concat(generated);
+      createItem(cartsDataArray);
+    });
+    window.removeEventListener('scroll', scroll);
+  }
+
+}
