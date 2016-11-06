@@ -1,9 +1,10 @@
 /* 11. валидация формы */
 var modalForm = document.querySelector('.modal__form');
 var personName = document.querySelector('.input__name');
-var tel = document.querySelector('.input__phone');
-var email = document.querySelector('.input__mail');
+var personTel = document.querySelector('.input__phone');
+var personEmail = document.querySelector('.input__mail');
 
+var check;
 function updateStatus(el, isValid, message){  
   var currentMessage = el.closest('.modal__line').querySelector('.message__error');
   if (currentMessage != null ){
@@ -15,10 +16,15 @@ function updateStatus(el, isValid, message){
     messageError.classList.add('message__error');
     messageError.innerHTML = message;
     el.parentNode.appendChild(messageError);
+    el.valid = false;
+    // console.log(el.valid);
   } else {
     el.style.borderColor = '#3cca30';
+    el.valid = true;
+    // console.log(el.valid);
   }
 };
+
 
 
 personName.addEventListener('change', function(){
@@ -27,18 +33,19 @@ personName.addEventListener('change', function(){
   var messageText = "Заполните поле";
   updateStatus(personName, isValid, messageText);
 });
-tel.addEventListener('change', function(){
+personTel.addEventListener('change', function(){
   var telRegExp = /\d+/;
-  var isValid = telRegExp.test(tel.value);
-  var messageText = "Заполните поле";
-  updateStatus(tel, isValid, messageText);
+  var isValid = telRegExp.test(personTel.value);
+  var messageText = "Телефон должен содержать хотя бы одну цифру";
+  updateStatus(personTel, isValid, messageText);
 });
-email.addEventListener('change', function(){
+personEmail.addEventListener('change', function(){
   var emailRegExp = /^.+@.+\..+$/;
-  var isValid = emailRegExp.test(email.value);
+  var isValid = emailRegExp.test(personEmail.value);
   var messageText = "Email должен содержать символы @ и .";
-  updateStatus(email, isValid, messageText);
+  updateStatus(personEmail, isValid, messageText);
 });
+
 
 
 
@@ -54,10 +61,32 @@ var modalUnderlay = document.querySelector('.modal_underlay');
 var modalBtn = document.querySelector('.modal .btn');
 var loader = document.querySelector('.loader');
 
-modalBtn.addEventListener('click', showResult);
 
-function showResult(e){
+modalBtn.addEventListener('click', checkFields);
+
+function checkFields(e) {
   e.preventDefault();
+  var cartTextInputs = document.querySelectorAll('.modal__form input[type="text"]');
+  var t = 1;
+  for (var i=0; i<cartTextInputs.length; i++) {
+    t *= checkInput( cartTextInputs[i] );
+  }
+
+  if (t == 1){
+    showResult();
+  } 
+}
+
+function checkInput(input) {
+  if ( input.value == '' || input.valid == false) {
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+
+function showResult(){
   modalOrder.style.display = 'none';
   loader.style.display = 'block';
   loader.style.top = '150px';
@@ -80,10 +109,6 @@ function hideSuccess() {
 
 
 /* 13. scroll */
-// window.addEventListener('scroll', function(){
-//   console.log('scroll')
-// });
-
 window.addEventListener('scroll', scroll);
 
 function scroll(){
